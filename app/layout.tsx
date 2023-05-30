@@ -1,5 +1,8 @@
 import "./globals.css";
 import { Figtree } from "next/font/google";
+import Sidebar from "@/components/Sidebar";
+import {twMerge} from "tailwind-merge";
+import React from "react";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -15,7 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={twMerge(font.className,'h-full')}>
+        <Sidebar>{children}</Sidebar>
+      </body>
     </html>
   );
 }
