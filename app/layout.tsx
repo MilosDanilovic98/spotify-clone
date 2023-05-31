@@ -1,8 +1,9 @@
 import "./globals.css";
 import { Figtree } from "next/font/google";
 import Sidebar from "@/components/Sidebar";
-import {twMerge} from "tailwind-merge";
+import { twMerge } from "tailwind-merge";
 import React from "react";
+import SupabaseProvider from "@/providers/SupabaseProvider";
 
 const font = Figtree({ subsets: ["latin"] });
 
@@ -18,8 +19,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={twMerge(font.className,'h-full')}>
-        <Sidebar>{children}</Sidebar>
+      <body className={twMerge(font.className, "h-full")}>
+        <SupabaseProvider>
+          <Sidebar>{children}</Sidebar>
+        </SupabaseProvider>
       </body>
     </html>
   );
