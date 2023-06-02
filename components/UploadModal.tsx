@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Modal from "@/components/Modal";
 import useUploadModal from "@/hooks/useUploadModal";
-import { FieldValues, useForm } from "react-hook-form";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import Input from "@/components/Input";
 
 const UploadModal = () => {
   const uploadModal = useUploadModal();
+  const [isLoading, setIsLoading] = useState();
 
   const { register, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: {
@@ -17,10 +19,13 @@ const UploadModal = () => {
   });
   const onChange = (open: boolean) => {
     if (!open) {
-      reset()
+      reset();
       uploadModal.onClose();
     }
   };
+
+  const onSubmit: SubmitHandler<FieldValues> = async (values) => {};
+
   return (
     <Modal
       isOpen={uploadModal.isOpen}
@@ -28,7 +33,14 @@ const UploadModal = () => {
       title={"Add a song"}
       description={"Upload an mp3 file"}
     >
-      Form
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          id={"title"}
+          disabled={isLoading}
+          {...register("title", { required: true })}
+          placeholder={"Song title"}
+        />
+      </form>
     </Modal>
   );
 };
