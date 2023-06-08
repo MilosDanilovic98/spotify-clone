@@ -1,8 +1,10 @@
 "use client";
 
-import SongItem from "@/components/SongItem";
-import { Song } from "@/types";
 import React from "react";
+
+import SongItem from "@/components/SongItem";
+
+import { Song } from "@/types";
 
 interface PageContentProps {
   songs: Song[];

@@ -1,8 +1,10 @@
-import getSongs from "@/actions/getSongs";
 import PageContent from "@/app/(site)/components/PageContent";
+import uniqid from "uniqid";
+
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
-import uniqid from "uniqid";
+
+import getSongs from "@/actions/getSongs";
 
 export const revalidate = 0;
 export default async function Home() {

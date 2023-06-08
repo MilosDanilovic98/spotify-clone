@@ -1,16 +1,20 @@
 "use client";
 
-import Button from "@/components/Button";
-import Input from "@/components/Input";
-import Modal from "@/components/Modal";
-import useUploadModal from "@/hooks/useUploadModal";
-import { useUser } from "@/hooks/useUser";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import uniqid from "uniqid";
+
+import { useRouter } from "next/navigation";
+
+import Button from "@/components/Button";
+import Input from "@/components/Input";
+import Modal from "@/components/Modal";
+
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+
+import useUploadModal from "@/hooks/useUploadModal";
+import { useUser } from "@/hooks/useUser";
 
 const UploadModal = () => {
   const uploadModal = useUploadModal();

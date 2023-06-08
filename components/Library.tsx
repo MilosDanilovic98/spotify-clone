@@ -1,13 +1,16 @@
 "use client";
 
-import MediaItem from "@/components/MediaItem";
-import useAuthModal from "@/hooks/useAuthModal";
-import useUploadModal from "@/hooks/useUploadModal";
-import { useUser } from "@/hooks/useUser";
-import { Song } from "@/types";
 import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
+
+import MediaItem from "@/components/MediaItem";
+
+import { Song } from "@/types";
+
+import useAuthModal from "@/hooks/useAuthModal";
+import useUploadModal from "@/hooks/useUploadModal";
+import { useUser } from "@/hooks/useUser";
 
 interface LibraryProps {
   songs: Song[];

@@ -1,10 +1,13 @@
 "use client";
 
-import Input from "@/components/Input";
-import useDebounce from "@/hooks/useDebounce";
-import { useRouter } from "next/navigation";
 import qs from "query-string";
 import React, { useEffect, useState } from "react";
+
+import { useRouter } from "next/navigation";
+
+import Input from "@/components/Input";
+
+import useDebounce from "@/hooks/useDebounce";
 
 const SearchInput = () => {
   const router = useRouter();

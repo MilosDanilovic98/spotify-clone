@@ -1,9 +1,12 @@
 "use client";
 
-import useLoadImage from "@/hooks/useLoadImage";
-import { Song } from "@/types";
-import Image from "next/image";
 import React from "react";
+
+import Image from "next/image";
+
+import { Song } from "@/types";
+
+import useLoadImage from "@/hooks/useLoadImage";
 
 interface MediaItemProps {
   song: Song;

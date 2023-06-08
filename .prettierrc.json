@@ -1,7 +1,19 @@
+{
+  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^[]",
+    "^next/(.*)$",
+    "^@/components/(.*)$",
+    "^@/types/(.*)$",
+    "^@/types",
+    "^@/providers/(.*)$",
+    "^@/actions/(.*)$",
+    "^@supabase/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@ui/(.*)$",
+    "^[./]"
 
- {
-   "plugins": ["@trivago/prettier-plugin-sort-imports"],
-   "importOrder": ["^@components/(.*)$", "^@types/(.*)$", "^@ui/(.*)$", "^[./]"],
-   "importOrderSeparation": true,
-   "importOrderSortSpecifiers": true
- }
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

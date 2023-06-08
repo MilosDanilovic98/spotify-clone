@@ -1,13 +1,16 @@
 "use client";
 
-import Box from "@/components/Box";
-import Library from "@/components/Library";
-import SidebarItem from "@/components/SidebarItem";
-import { Song } from "@/types";
-import { usePathname } from "next/navigation";
 import React, { useMemo } from "react";
 import { BiSearch } from "react-icons/bi";
 import { HiHome } from "react-icons/hi";
+
+import { usePathname } from "next/navigation";
+
+import Box from "@/components/Box";
+import Library from "@/components/Library";
+import SidebarItem from "@/components/SidebarItem";
+
+import { Song } from "@/types";
 
 interface SidebarProps {
   children: React.ReactNode;

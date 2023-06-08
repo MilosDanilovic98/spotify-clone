@@ -1,12 +1,16 @@
-import getSongsByUserId from "@/actions/getSongsByUserId";
+import React from "react";
+import { twMerge } from "tailwind-merge";
+
+import { Figtree } from "next/font/google";
+
 import Sidebar from "@/components/Sidebar";
+
 import ModalProvider from "@/providers/ModalProvider";
 import SupabaseProvider from "@/providers/SupabaseProvider";
 import ToasterProvider from "@/providers/ToasterProvider";
 import UserProvider from "@/providers/userProvider";
-import { Figtree } from "next/font/google";
-import React from "react";
-import { twMerge } from "tailwind-merge";
+
+import getSongsByUserId from "@/actions/getSongsByUserId";
 
 import "./globals.css";
 

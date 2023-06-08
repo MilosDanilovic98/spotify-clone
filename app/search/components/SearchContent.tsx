@@ -1,9 +1,11 @@
 "use client";
 
+import React from "react";
+
 import LikedButton from "@/components/LikedButton";
 import MediaItem from "@/components/MediaItem";
+
 import { Song } from "@/types";
-import React from "react";
 
 interface SearchContentProps {
   songs: Song[];
