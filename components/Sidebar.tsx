@@ -31,12 +31,13 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
       {
         icon: BiSearch,
         label: "Search",
-        active: pathname === "/search",
+        active: pathname.includes("/search") ,
         href: "/search",
       },
     ],
-    []
+    [pathname]
   );
+
   return (
     <div className="flex h-full">
       <div className="hidden h-full w-[300px] flex-col gap-y-2 bg-black p-2 md:flex">
