@@ -1,5 +1,5 @@
-import React from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+import React from "react";
 import { IoMdClose } from "react-icons/io";
 
 interface ModalProps {
@@ -34,8 +34,10 @@ const Modal: React.FC<ModalProps> = ({
           </Dialog.Description>
           <div>{children}</div>
           <Dialog.Close asChild>
-            <button className="absolute right-[10px] top-[10px] inline-flex h-[25px] w-[25px]
-             appearance-none items-center justify-center rounded-full text-neutral-400 hover:text-white focus:outline-none">
+            <button
+              className="absolute right-[10px] top-[10px] inline-flex h-[25px] w-[25px]
+             appearance-none items-center justify-center rounded-full text-neutral-400 hover:text-white focus:outline-none"
+            >
               <IoMdClose />
             </button>
           </Dialog.Close>

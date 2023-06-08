@@ -1,16 +1,18 @@
 "use client";
-import React from "react";
-import { useRouter } from "next/navigation";
-import { twMerge } from "tailwind-merge";
-import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
-import { HiHome } from "react-icons/hi";
-import { BiSearch } from "react-icons/bi";
+
 import Button from "@/components/Button";
 import useAuthModal from "@/hooks/useAuthModal";
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useUser } from "@/hooks/useUser";
-import { FaUserAlt } from "react-icons/fa";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { useRouter } from "next/navigation";
+import React from "react";
 import toast from "react-hot-toast";
+import { BiSearch } from "react-icons/bi";
+import { FaUserAlt } from "react-icons/fa";
+import { HiHome } from "react-icons/hi";
+import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
+import { twMerge } from "tailwind-merge";
+
 interface HeaderProps {
   children: React.ReactNode;
   className?: string;
@@ -26,9 +28,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
     router.refresh();
     if (error) {
       toast.error(error.message);
-    }
-    else{
-      toast.success("Logged out successfully")
+    } else {
+      toast.success("Logged out successfully");
     }
   };
 

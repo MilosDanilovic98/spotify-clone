@@ -1,9 +1,11 @@
 "use client";
-import React from "react";
-import { Song } from "@/types";
-import useLoadImage from "@/hooks/useLoadImage";
-import Image from "next/image";
+
 import PlayButton from "@/components/PlayButton";
+import useLoadImage from "@/hooks/useLoadImage";
+import { Song } from "@/types";
+import Image from "next/image";
+import React from "react";
+
 interface SongItemProps {
   data: Song;
   onClick: (id: string) => void;
@@ -14,7 +16,7 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
     <div
       onClick={() => onClick(data.id)}
       className={
-        "flex group relative flex-col items-center justify-center gap-x-4 " +
+        "group relative flex flex-col items-center justify-center gap-x-4 " +
         "cursor-pointer overflow-hidden rounded-md bg-neutral-400/5 p-3 transition hover:bg-neutral-400/10"
       }
     >
@@ -23,15 +25,21 @@ const SongItem: React.FC<SongItemProps> = ({ data, onClick }) => {
           "relative aspect-square h-full w-full overflow-hidden rounded-md"
         }
       >
-        <Image className={"object-cover"} src={imagePath || '/images/liked.png'} fill alt={"Cover image"}/>
-
+        <Image
+          className={"object-cover"}
+          src={imagePath || "/images/liked.png"}
+          fill
+          alt={"Cover image"}
+        />
       </div>
-      <div className={"flex flex-col items-start w-full pt-4 gap-y-1"}>
-        <p className={"font-semibold truncate w-full"}>{data.title}</p>
-        <p className={"text-neutral-400 text-sm pb-4 w-full truncate"}>By {data.author}</p>
+      <div className={"flex w-full flex-col items-start gap-y-1 pt-4"}>
+        <p className={"w-full truncate font-semibold"}>{data.title}</p>
+        <p className={"w-full truncate pb-4 text-sm text-neutral-400"}>
+          By {data.author}
+        </p>
       </div>
       <div
-          className="
+        className="
           absolute
           bottom-24
           right-5

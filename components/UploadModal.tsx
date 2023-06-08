@@ -1,22 +1,23 @@
 "use client";
-import React, { useState } from "react";
+
+import Button from "@/components/Button";
+import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import useUploadModal from "@/hooks/useUploadModal";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import Input from "@/components/Input";
-import Button from "@/components/Button";
-import toast from "react-hot-toast";
 import { useUser } from "@/hooks/useUser";
-import uniqid from "uniqid";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import uniqid from "uniqid";
 
 const UploadModal = () => {
   const uploadModal = useUploadModal();
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUser();
   const supabaseClient = useSupabaseClient();
-  const router=useRouter()
+  const router = useRouter();
 
   const { register, handleSubmit, reset } = useForm<FieldValues>({
     defaultValues: {
@@ -38,7 +39,7 @@ const UploadModal = () => {
       setIsLoading(true);
       const imageFile = values?.image?.[0];
       const songFile = values?.song?.[0];
-      console.log(imageFile, songFile,user)
+      console.log(imageFile, songFile, user);
       if (!imageFile || !songFile || !user) {
         toast.error("Missing fields");
         return;
@@ -84,16 +85,16 @@ const UploadModal = () => {
           song_path: songData.path,
         });
 
-      if(supabaseError){
+      if (supabaseError) {
         setIsLoading(false);
         return toast.error(supabaseError.message);
       }
 
-      router.refresh()
+      router.refresh();
       setIsLoading(false);
       toast.success("Song Created");
-      reset()
-      uploadModal.onClose()
+      reset();
+      uploadModal.onClose();
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
