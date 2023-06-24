@@ -1,8 +1,8 @@
 "use client";
 
-import { id } from "postcss-selector-parser";
+
 import React, { useEffect, useState } from "react";
-import { Simulate } from "react-dom/test-utils";
+
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
 import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
@@ -16,7 +16,6 @@ import { Song } from "@/types";
 
 import usePlayer from "@/hooks/usePlayer";
 
-import play = Simulate.play;
 
 interface PlayerContentProps {
   song: Song;
