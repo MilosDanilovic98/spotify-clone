@@ -81,7 +81,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     if (isPlaying) {
       pause();
     } else {
-      pause();
+      play();
     }
   };
 
