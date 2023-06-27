@@ -7,9 +7,9 @@ import uniqid from "uniqid";
 
 import { useRouter } from "next/navigation";
 
-import Button from "@/components/Button";
-import Input from "@/components/Input";
-import Modal from "@/components/Modal";
+import Button from "@/components/buttons/Button";
+import Input from "@/components/inputs/Input";
+import Modal from "@/components/modals/Modal";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 

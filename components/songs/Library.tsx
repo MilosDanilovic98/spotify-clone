@@ -4,7 +4,7 @@ import React from "react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { TbPlaylist } from "react-icons/tb";
 
-import MediaItem from "@/components/MediaItem";
+import MediaItem from "@/components/songs/MediaItem";
 
 import { Song } from "@/types";
 

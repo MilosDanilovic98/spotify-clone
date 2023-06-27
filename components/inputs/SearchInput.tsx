@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
-import Input from "@/components/Input";
+import Input from "@/components/inputs/Input";
 
 import useDebounce from "@/hooks/useDebounce";
 

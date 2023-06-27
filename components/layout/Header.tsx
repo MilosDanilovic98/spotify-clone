@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { twMerge } from "tailwind-merge";
 
 import { useRouter } from "next/navigation";
 
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
@@ -26,7 +26,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const { onOpen } = useAuthModal();
 
   const supaBaseClient = useSupabaseClient();
-  const { user } = useUser();
+  const { user, session } = useUser();
+
   const handleLogout = async () => {
     const { error } = await supaBaseClient.auth.signOut();
     router.refresh();
@@ -36,6 +37,50 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
       toast.success("Logged out successfully");
     }
   };
+
+  useEffect(() => {
+    const test = async () => {
+      let counter = 50;
+      const response = await fetch(
+        "https://api.spotify.com/v1/recommendations",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + session?.provider_token,
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log(data)
+      //   const timer = ms => new Promise(res => setTimeout(res, ms))
+      //   let bla=data.items
+      //   console.log(bla)
+      //   while (data.total > counter){
+      //     const response = await fetch(
+      //         `https://api.spotify.com/v1/me/tracks?limit=50&&offset=${counter}`,
+      //         {
+      //           headers: {
+      //             "Content-Type": "application/json",
+      //             Authorization: "Bearer " + session?.provider_token,
+      //           },
+      //         }
+      //     );
+      //     const data=await response.json()
+      //     bla=bla.concat(data.items)
+      //     counter+=50
+      //     await timer(1000);
+      //   }
+      //
+      //
+      //   console.log(bla)
+    };
+
+    if (session) {
+      console.log(session?.provider_token);
+      test();
+    }
+  }, [session]);
 
   return (
     <div

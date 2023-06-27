@@ -1,8 +1,8 @@
 import PageContent from "@/app/(site)/components/PageContent";
 import uniqid from "uniqid";
 
-import Header from "@/components/Header";
-import ListItem from "@/components/ListItem";
+import Header from "@/components/layout/Header";
+import ListItem from "@/components/songs/ListItem";
 
 import getSongs from "@/actions/getSongs";
 

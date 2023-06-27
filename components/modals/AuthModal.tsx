@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
-import Modal from "@/components/Modal";
+import Modal from "@/components/modals/Modal";
 
 import {
   useSessionContext,
@@ -46,6 +46,7 @@ const AuthModal = () => {
         magicLink
         theme={"dark"}
         providers={["github", "spotify"]}
+        providerScopes={{spotify: "user-top-read,user-library-read"}}
         appearance={{
           theme: ThemeSupa,
           variables: {

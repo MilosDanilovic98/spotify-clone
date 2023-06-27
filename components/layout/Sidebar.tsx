@@ -6,9 +6,9 @@ import { HiHome } from "react-icons/hi";
 
 import { usePathname } from "next/navigation";
 
-import Box from "@/components/Box";
-import Library from "@/components/Library";
-import SidebarItem from "@/components/SidebarItem";
+import Box from "@/components/layout/Box";
+import Library from "@/components/songs/Library";
+import SidebarItem from "@/components/songs/SidebarItem";
 
 import { Song } from "@/types";
 import usePlayer from "@/hooks/usePlayer";

@@ -4,7 +4,7 @@ import React from "react";
 
 import Image from "next/image";
 
-import PlayButton from "@/components/PlayButton";
+import PlayButton from "@/components/buttons/PlayButton";
 
 import { Song } from "@/types";
 

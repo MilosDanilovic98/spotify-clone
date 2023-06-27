@@ -8,9 +8,9 @@ import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 import useSound from "use-sound";
 
-import LikedButton from "@/components/LikedButton";
-import MediaItem from "@/components/MediaItem";
-import Slider from "@/components/Slider";
+import LikedButton from "@/components/buttons/LikedButton";
+import MediaItem from "@/components/songs/MediaItem";
+import Slider from "@/components/player/Slider";
 
 import { Song } from "@/types";
 

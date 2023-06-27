@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { UserDetails } from "@/types";
 
 import {
+  Session,
   User,
   useSessionContext,
   useUser as useSupaUser,
@@ -12,6 +13,7 @@ type UserContextType = {
   accessToken: string | null;
   user: User | null;
   userDetails: UserDetails | null;
+  session:Session|null,
   isLoading: boolean;
 };
 
@@ -65,6 +67,7 @@ export const MyUserContextProvider = (props: Props) => {
     accessToken,
     user,
     userDetails,
+    session,
     isLoading: isLoadingUser || isLoadingData,
   };
 
