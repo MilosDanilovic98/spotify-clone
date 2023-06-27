@@ -13,7 +13,8 @@ type UserContextType = {
   accessToken: string | null;
   user: User | null;
   userDetails: UserDetails | null;
-  session:Session|null,
+  spotifyToken: string | null,
+  spotifyRefreshToken: string | null
   isLoading: boolean;
 };
 
@@ -33,6 +34,8 @@ export const MyUserContextProvider = (props: Props) => {
   } = useSessionContext();
   const user = useSupaUser();
   const accessToken = session?.access_token ?? null;
+  const spotifyToken = session?.provider_token ?? null;
+  const spotifyRefreshToken = session?.provider_refresh_token ?? null;
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
 
@@ -50,7 +53,7 @@ export const MyUserContextProvider = (props: Props) => {
       Promise.allSettled([getUserDetails(), getSubscription()]).then(
         (results) => {
           const userDetailsPromise = results[0];
-          const subscriptionPromise = results[1];
+
 
           if (userDetailsPromise.status === "fulfilled")
             setUserDetails(userDetailsPromise.value.data as UserDetails);
@@ -67,8 +70,9 @@ export const MyUserContextProvider = (props: Props) => {
     accessToken,
     user,
     userDetails,
-    session,
     isLoading: isLoadingUser || isLoadingData,
+    spotifyToken,
+    spotifyRefreshToken
   };
 
   return <UserContext.Provider value={value} {...props} />;
