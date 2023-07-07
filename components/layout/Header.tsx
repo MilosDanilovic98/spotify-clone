@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const { onOpen } = useAuthModal();
 
   const supaBaseClient = useSupabaseClient();
-  const { user, session } = useUser();
+  const { user } = useUser();
 
   const handleLogout = async () => {
     const { error } = await supaBaseClient.auth.signOut();
@@ -38,49 +38,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
     }
   };
 
-  useEffect(() => {
-    const test = async () => {
-      let counter = 50;
-      const response = await fetch(
-        "https://api.spotify.com/v1/recommendations",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + session?.provider_token,
-          },
-        }
-      );
 
-      const data = await response.json();
-      console.log(data)
-      //   const timer = ms => new Promise(res => setTimeout(res, ms))
-      //   let bla=data.items
-      //   console.log(bla)
-      //   while (data.total > counter){
-      //     const response = await fetch(
-      //         `https://api.spotify.com/v1/me/tracks?limit=50&&offset=${counter}`,
-      //         {
-      //           headers: {
-      //             "Content-Type": "application/json",
-      //             Authorization: "Bearer " + session?.provider_token,
-      //           },
-      //         }
-      //     );
-      //     const data=await response.json()
-      //     bla=bla.concat(data.items)
-      //     counter+=50
-      //     await timer(1000);
-      //   }
-      //
-      //
-      //   console.log(bla)
-    };
-
-    if (session) {
-      console.log(session?.provider_token);
-      test();
-    }
-  }, [session]);
 
   return (
     <div
