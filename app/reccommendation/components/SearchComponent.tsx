@@ -1,5 +1,8 @@
+"use client"
+
 import useRecommendStore from "@/app/reccommendation/useReccommendStore";
 import useReccommendStore from "@/app/reccommendation/useReccommendStore";
+import SelectedSearchContent from "@/app/search/components/SelectedSearchContent";
 import { Combobox, Transition } from "@headlessui/react";
 import React, { Fragment, useEffect, useState } from "react";
 import { BiSearch } from "react-icons/bi";
@@ -64,6 +67,7 @@ export default function SearchComponent({
             },
           }
         );
+
         setData(await response.json());
       } catch (e) {
         console.log(e);
@@ -76,7 +80,7 @@ export default function SearchComponent({
   }, [spotifyToken, spotifyRefreshToken, debouncedValue]);
 
   return (
-    <div className="flex w-full flex-wrap">
+    <div className="flex w-full flex-col">
       <Combobox
         className={"w-full"}
         // @ts-ignore
@@ -114,9 +118,9 @@ export default function SearchComponent({
                   Nothing found.
                 </div>
               ) : (
-                data?.[type]?.items?.map((item: any) => (
+                data?.[type]?.items?.map((item) => (
                   <Combobox.Option
-                    key={item.uri}
+                    key={item.id}
                     className={({ active }) =>
                       `relative flex cursor-pointer items-center gap-x-3 rounded-md p-2 pl-12 hover:bg-neutral-800/50  ${
                         active ? "bg-neutral-800/50 text-white" : "text-green"
@@ -125,10 +129,10 @@ export default function SearchComponent({
                     value={
                       item.name +
                       "$$$" +
-                      item.uri +
+                      item.id +
                       "$$$" +
                       `${
-                        type === "tracks"
+                        item.type === "track"
                           ? item?.album?.images[item?.album?.images?.length - 1]
                               ?.url
                           : item?.images[item?.images?.length - 1]?.url
@@ -147,7 +151,7 @@ export default function SearchComponent({
                             height={64}
                             alt={"albumIMage"}
                             src={
-                              type === "tracks"
+                              item.type === "track"
                                 ? item?.album?.images[
                                     item?.album?.images?.length - 1
                                   ]?.url
@@ -174,46 +178,7 @@ export default function SearchComponent({
           </Transition>
         </div>
       </Combobox>
-      {selectedData.length > 0 && (
-        <>
-          <div className={"flex  w-full flex-col gap-y-6 bg-neutral-800/50"}>
-            <h1 className={"text-xl font-semibold text-white"}>
-              {type.charAt(0).toUpperCase() + type.slice(1)}:
-            </h1>
-          </div>
-
-          <div className="flex w-full flex-wrap bg-neutral-800/40 p-2 ">
-            {selectedData.map((option, index) => {
-              let value = option.split("$$$");
-              return (
-                <div
-                  onClick={() => {
-                    let temp = [...selectedData];
-                    temp.splice(index, 1);
-                    setSelectedData(temp);
-
-                  }}
-                  className={
-                    "flex  cursor-pointer items-center gap-x-3 rounded-md p-2 hover:bg-neutral-800/50 "
-                  }
-                  key={uniqid()}
-                >
-                  <img
-                    className={"h-[64px] w-[64px]"}
-                    height={64}
-                    alt={"albumIMage"}
-                    src={value[2]}
-                  />
-                  <div className={"flex flex-col gap-y-1 overflow-hidden"}>
-                    <p className={"truncate text-white"}>{value[0]}</p>
-                    {/* <p className={"truncate text-sm text-neutral-400"}>{value[0]}</p>*/}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </>
-      )}
+      <SelectedSearchContent type={type} />
     </div>
   );
 }
