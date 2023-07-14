@@ -149,7 +149,7 @@ const GetRecommendations = () => {
           if (option.preview_url)
             return (
               <div
-                onClick={() => player.setRecommendedSongUrl(option.preview_url)}
+
                 className={
                   "flex  cursor-pointer items-center gap-x-3 rounded-md p-2 hover:bg-neutral-800/50 "
                 }
