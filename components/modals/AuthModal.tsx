@@ -46,7 +46,7 @@ const AuthModal = () => {
         magicLink
         theme={"dark"}
         providers={["github", "spotify"]}
-        providerScopes={{spotify: "user-top-read,user-library-read"}}
+        providerScopes={{spotify: "user-top-read,user-library-read,playlist-modify-public,playlist-modify-private"}}
         appearance={{
           theme: ThemeSupa,
           variables: {
