@@ -15,6 +15,7 @@ import SidebarItem from "@/components/songs/SidebarItem";
 import { Song } from "@/types";
 
 import usePlayer from "@/hooks/usePlayer";
+import { useUser } from "@/hooks/useUser";
 
 interface SidebarProps {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ interface SidebarProps {
 const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
   const pathname = usePathname();
   const player = usePlayer();
+  const { spotifyToken } = useUser();
 
   const routes = useMemo(
     () => [
@@ -39,6 +41,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
         active: pathname.includes("/search"),
         href: "/search",
       },
+
       {
         icon: SiMusicbrainz,
         label: "Recommendations",
@@ -59,9 +62,13 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
       <div className="hidden h-full w-[300px] flex-col gap-y-2 bg-black p-2 md:flex">
         <Box>
           <div className="flex flex-col gap-y-4 px-5 py-5">
-            {routes.map((item) => (
-              <SidebarItem key={item.label} {...item} />
-            ))}
+            {routes.map((item) => {
+              if (item.label !== "Recommendations") {
+                return <SidebarItem key={item.label} {...item} />;
+              } else if (spotifyToken) {
+                return <SidebarItem key={item.label} {...item} />;
+              }
+            })}
           </div>
         </Box>
         <Box className="h-full overflow-y-auto">
