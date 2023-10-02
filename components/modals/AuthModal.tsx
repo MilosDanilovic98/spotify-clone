@@ -21,7 +21,7 @@ const AuthModal = () => {
   const { session } = useSessionContext();
   const { onClose, isOpen } = useAuthModal();
 
-
+/*TEST*/
   const onChange = (open: boolean) => {
     if (!open) {
       onClose();
