@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { twMerge } from "tailwind-merge";
 
 import { useRouter } from "next/navigation";
 
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
@@ -26,7 +26,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const { onOpen } = useAuthModal();
 
   const supaBaseClient = useSupabaseClient();
-  const { user } = useUser();
+  const { user, isLoading } = useUser();
+
   const handleLogout = async () => {
     const { error } = await supaBaseClient.auth.signOut();
     router.refresh();
@@ -70,10 +71,15 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         <div className="flex items-center justify-between gap-x-4">
           {user ? (
             <div className="flex items-center gap-x-4 ">
-              <Button className="bg-white px-6 py-2" onClick={handleLogout}>
+              <Button
+                disabled={isLoading}
+                className="bg-white px-6 py-2"
+                onClick={handleLogout}
+              >
                 Logout
               </Button>
               <Button
+                disabled={isLoading}
                 className="bg-white"
                 onClick={() => router.push("/account")}
               >
@@ -84,6 +90,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <>
               <div>
                 <Button
+                  disabled={isLoading}
                   onClick={onOpen}
                   className="bg-transparent font-medium text-neutral-300"
                 >
@@ -91,7 +98,11 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                 </Button>
               </div>
               <div>
-                <Button onClick={onOpen} className="bg-white px-6 py-2">
+                <Button
+                  disabled={isLoading}
+                  onClick={onOpen}
+                  className="bg-white px-6 py-2"
+                >
                   Log in
                 </Button>
               </div>

@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import SongItem from "@/components/SongItem";
+import SongItem from "@/components/songs/SongItem";
 
 import { Song } from "@/types";
 import useOnPlay from "@/hooks/useOnPlay";

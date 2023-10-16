@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import LikedButton from "@/components/LikedButton";
-import MediaItem from "@/components/MediaItem";
+import LikedButton from "@/components/buttons/LikedButton";
+import MediaItem from "@/components/songs/MediaItem";
 
 import { Song } from "@/types";
 import useOnPlay from "@/hooks/useOnPlay";

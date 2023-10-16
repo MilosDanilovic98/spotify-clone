@@ -5,7 +5,7 @@ import React from "react";
 import useGetSongById from "@/hooks/useGetSongById";
 import useLoadSongUrl from "@/hooks/useLoadSongUrl";
 import usePlayer from "@/hooks/usePlayer";
-import PlayerContent from "@/components/PlayerContent";
+import PlayerContent from "@/components/player/PlayerContent";
 
 const Player = () => {
   const player = usePlayer();

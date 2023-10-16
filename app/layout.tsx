@@ -1,9 +1,10 @@
+
 import React from "react";
 import { twMerge } from "tailwind-merge";
 
 import { Figtree } from "next/font/google";
 
-import Sidebar from "@/components/Sidebar";
+import Sidebar from "@/components/layout/Sidebar";
 
 import ModalProvider from "@/providers/ModalProvider";
 import SupabaseProvider from "@/providers/SupabaseProvider";
@@ -13,7 +14,7 @@ import UserProvider from "@/providers/userProvider";
 import getSongsByUserId from "@/actions/getSongsByUserId";
 
 import "./globals.css";
-import Player from "@/components/Player";
+import Player from "@/components/player/Player";
 
 const font = Figtree({ subsets: ["latin"] });
 

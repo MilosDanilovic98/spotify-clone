@@ -4,12 +4,12 @@ import React, { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
-import MediaItem from "@/components/MediaItem";
+import MediaItem from "@/components/songs/MediaItem";
 
 import { Song } from "@/types";
 
 import { useUser } from "@/hooks/useUser";
-import LikedButton from "@/components/LikedButton";
+import LikedButton from "@/components/buttons/LikedButton";
 import useOnPlay from "@/hooks/useOnPlay";
 
 interface LikedContentProps {

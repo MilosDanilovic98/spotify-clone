@@ -2,7 +2,7 @@ import React from "react";
 
 import Image from "next/image";
 
-import Header from "@/components/Header";
+import Header from "@/components/layout/Header";
 
 import getLikedSongs from "@/actions/getLikedSongs";
 import LikedContent from "@/app/liked/components/LikedContent";

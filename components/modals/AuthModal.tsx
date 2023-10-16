@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
-import Modal from "@/components/Modal";
+import Modal from "@/components/modals/Modal";
 
 import {
   useSessionContext,
@@ -21,6 +21,7 @@ const AuthModal = () => {
   const { session } = useSessionContext();
   const { onClose, isOpen } = useAuthModal();
 
+/*TEST4*/
   const onChange = (open: boolean) => {
     if (!open) {
       onClose();
@@ -46,6 +47,7 @@ const AuthModal = () => {
         magicLink
         theme={"dark"}
         providers={["github", "spotify"]}
+        providerScopes={{spotify: "user-top-read,user-library-read,playlist-modify-public,playlist-modify-private"}}
         appearance={{
           theme: ThemeSupa,
           variables: {
