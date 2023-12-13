@@ -34,7 +34,7 @@ const AuthModal = () => {
       onClose();
     }
   }, [session, router, onClose]);
-
+  location.origin
   return (
     <Modal
       isOpen={isOpen}
@@ -45,6 +45,7 @@ const AuthModal = () => {
       <Auth
         supabaseClient={supabaseClient}
         magicLink
+        redirectTo={`${location.origin}/auth/callback`}
         theme={"dark"}
         providers={["github", "spotify"]}
         providerScopes={{spotify: "user-top-read,user-library-read,playlist-modify-public,playlist-modify-private"}}

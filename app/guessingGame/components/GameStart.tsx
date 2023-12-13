@@ -1,17 +1,33 @@
-"use client"
-import React from 'react';
+"use client";
+
+import React, {useEffect, useState} from 'react';
 import uniqid from "uniqid";
 import useSound from "use-sound";
 
+
 const GameStart = ({data,songsToPlay}) => {
-    console.log(songsToPlay)
+    let [counter,setCounter]=useState(0)
     const [play, { pause, sound,stop }] = useSound(songsToPlay[0], {
         format: ["mp3"],
     });
+
+    console.log(counter)
+    useEffect(() => {
+        if (counter%3===0 && counter!==0){
+            songsToPlay.shift()
+        }
+    }, [counter]);
+
+
     return (
         <div className="flex h-full w-full flex-wrap ">
             <div onClick={()=>{
                 play()
+                setTimeout(() => {
+                  stop();
+                  setCounter((prevState)=>prevState+1)
+                }, 1000);
+                
             }}>BLAAAAAAAAAAA</div>
             {data?.tracks?.items.map((item) => {
                 if (item?.track?.preview_url)
