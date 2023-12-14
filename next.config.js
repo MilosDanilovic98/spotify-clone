@@ -3,7 +3,8 @@ const nextConfig = {
     images:{
         domains:[
             "gwalrcpiyfhxpkwwpgfn.supabase.co",
-            "i.scdn.co"
+            "i.scdn.co",
+            "charts-images.scdn.co"
         ]
     }
 }

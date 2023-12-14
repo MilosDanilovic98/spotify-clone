@@ -85,7 +85,7 @@ export const MyUserContextProvider = (props: Props) => {
       setUserDetails(null);
     }
   }, [user, isLoadingUser]);
-
+  console.log(spotifyToken)
   const value = {
     accessToken,
     user,

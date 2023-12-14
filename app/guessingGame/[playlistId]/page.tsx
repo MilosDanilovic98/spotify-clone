@@ -29,6 +29,7 @@ async function getData({ params }: { params: { playlistId: string } }) {
   try {
     const response = await fetch(
       `https://api.spotify.com/v1/playlists/${params.playlistId}`,
+
       {
         headers: {
           "Content-Type": "application/json",
@@ -57,8 +58,19 @@ const Page = async ({ params }: { params: { playlistId: string } }) => {
     }
 
     return songArray;
+
   };
-  let arrayOfSongsToPlay = getSongsToPlay();
+
+  function shuffleArray(array:(string|null|undefined)[]) {
+    let shuffledArr=array
+    for (let i = shuffledArr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArr[i], shuffledArr[j]] = [shuffledArr[j], shuffledArr[i]];
+    }
+    return shuffledArr
+  }
+
+  let arrayOfSongsToPlay = shuffleArray(getSongsToPlay());
 
   return (
     <div
