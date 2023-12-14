@@ -94,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
               <Button
                 disabled={isLoading}
                 className="bg-white"
-                onClick={() => router.push("/account")}
+                // onClick={() => router.push("/account")}
               >
                 <FaUserAlt />
               </Button>
