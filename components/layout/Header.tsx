@@ -12,10 +12,11 @@ import { useRouter } from "next/navigation";
 
 import Button from "@/components/buttons/Button";
 
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
+import {createBrowserClient} from "@supabase/ssr";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -25,8 +26,11 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const router = useRouter();
   const { onOpen } = useAuthModal();
 
-  const supaBaseClient = useSupabaseClient();
-  const { user, isLoading } = useUser();
+  const supaBaseClient = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+  const { user, isLoading,spotifyToken,spotifyRefreshToken } = useUser();
 
   const handleLogout = async () => {
     const { error } = await supaBaseClient.auth.signOut();

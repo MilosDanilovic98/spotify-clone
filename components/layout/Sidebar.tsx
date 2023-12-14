@@ -76,7 +76,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
         <Box>
           <div className="flex flex-col gap-y-4 px-5 py-5">
             {routes.map((item) => {
-              if (!spotifyToken && item.label === "Recommendations") {
+              if (!spotifyToken && (item.label === "Recommendations"||item.label === "Guessing Game") ) {
                 return (
                   <TooltipProvider delayDuration={0} key={item.label}>
                     <Tooltip>
