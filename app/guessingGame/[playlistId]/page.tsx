@@ -78,7 +78,7 @@ const Page = async ({ params }: { params: { playlistId: string } }) => {
         "h-full w-full overflow-hidden overflow-y-auto rounded-lg  bg-neutral-900 pb-48"
       }
     >
-      <Header className={"from-bg-neutral-900 h-[40%]"}>
+      <Header className={" h-[40%]"}>
         <div className={"mb-2 flex flex-col gap-y-6"}>
           <h1 className={"text-3xl font-semibold text-white"}>PLAY</h1>
         </div>

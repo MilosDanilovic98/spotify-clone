@@ -90,18 +90,20 @@ const Page = () => {
 
     return (<>
         <div className={"h-full w-full overflow-hidden overflow-y-auto rounded-lg  bg-neutral-900 pb-48"}>
-            <Header className={"from-bg-neutral-900"}>
+            <Header>
                 <div className={"mb-2 flex flex-col gap-y-6"}>
                     <h1 className={"text-3xl font-semibold text-white"}>Choose a playlist</h1>
                 </div>
             </Header>
             <Select onValueChange={(value)=>setSelectedCategorie(value)}>
-                <SelectTrigger className="w-[180px] bg-black">
+                <SelectTrigger className=" m-auto mb-12  flex w-3/4 sm:w-1/2 rounded-md border border-transparent bg-neutral-700 px-3 py-3 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-neutral-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50">
                     <SelectValue placeholder="Select a categorie" />
                 </SelectTrigger>
-                <SelectContent className={'bg-black'}>
+                <SelectContent className={'  bg-neutral-700 mt-1 max-h-60 w-full overflow-auto rounded-md py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm'}>
                     {categories?.categories?.items?.map((category)=>{
-                        return  <SelectItem key={category.id} className={'cursor-pointer hover:bg-gray-800'} value={category.id}>{category.name}</SelectItem>
+                        return  <SelectItem key={category.id} className={
+                            `relative flex cursor-pointer items-center gap-x-3 rounded-md p-2 pl-12 hover:bg-neutral-800/50`
+                        } value={category.id}>{category.name}</SelectItem>
                     })}
 
                 </SelectContent>
