@@ -23,9 +23,7 @@ const GameStart: React.FC<GameStartType> = ({ data, songsToPlay }) => {
   const [totalAllowedAttempts, setTotalAllowedAttempts] = useState(
     songsToPlay.length
   );
-    const [remainingSongs, setRemainingSongs] = useState(
-        songsToPlay.length
-    );
+  const [remainingSongs, setRemainingSongs] = useState(songsToPlay.length);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [correctSongs, setCorrectSongs] = useState<
@@ -44,7 +42,7 @@ const GameStart: React.FC<GameStartType> = ({ data, songsToPlay }) => {
     if (counter === 4) {
       setCounter(1);
       songsToPlay.shift();
-      setRemainingSongs((prev)=>prev-1)
+      setRemainingSongs((prev) => prev - 1);
     }
   }, [counter]);
 
@@ -54,36 +52,50 @@ const GameStart: React.FC<GameStartType> = ({ data, songsToPlay }) => {
       setCorrectSongs((prevState) => [...prevState, previewUlr]);
       setPoints((prevState) => prevState + 10);
       setCounter(4);
-
     }
   };
 
   const skipSong = () => {
     setCounter(1);
-    setRemainingSongs((prev)=>prev-1)
+    setRemainingSongs((prev) => prev - 1);
     songsToPlay.shift();
   };
 
   return (
-    <div className={"h-[60%]"}>
-      <div className={"flex items-center"}>
-        {" "}
-        Remaining guesses: {Math.trunc(totalAllowedAttempts)}{" "}
-        <FaRegQuestionCircle size={26} className={"inline pl-2"} />
+    <div className={"h-[60%] sm:h-[70%]"}>
+      <div
+        className={
+          "flex flex-row flex-wrap justify-between px-12 text-sm sm:text-2xl"
+        }
+      >
+        <div className={"flex flex-col sm:gap-6"}>
+          <div className={"flex  items-center justify-between gap-4 "}>
+            Remaining guesses:
+            {Math.trunc(totalAllowedAttempts)}{" "}
+            <FaRegQuestionCircle size={40} className={"inline pl-2"} />
+          </div>
+
+          <div className={"flex  items-center justify-between gap-3 "}>
+            Remaining songs: {remainingSongs}
+            <TbMusic size={40} className={"inline pl-2"} />
+          </div>
+        </div>
+
+        <div className={"flex  items-center justify-center gap-3"}>
+          Points:{points}
+          <FiTarget size={40} className={"inline "} />
+        </div>
       </div>
 
-      <div className={"flex items-center"}>
-        {" "}
-        Remaining songs: {remainingSongs}{" "}
-        <TbMusic size={26} className={"inline pl-2"} />
-      </div>
+
 
       <div
         className={
-          "flex h-[40%] w-full content-around justify-center gap-[50px] text-4xl"
+          "flex min-h-[40%] w-full flex-wrap content-around justify-center gap-[50px] text-4xl"
         }
       >
-        <div className={"flex items-center"}>Attempt:{counter}</div>
+        <div className={"flex items-center "}>Attempt:{counter}</div>
+
         <button
           disabled={isPlaying}
           onClick={() => {
@@ -101,9 +113,7 @@ const GameStart: React.FC<GameStartType> = ({ data, songsToPlay }) => {
         >
           <Icon size={100} className="text-black" />
         </button>
-        <div className={"flex items-center"}>
-          <FiTarget size={70} className={"inline"} />:{points}
-        </div>
+
         <button
           className={"text-xs"}
           onClick={() => {
@@ -113,8 +123,9 @@ const GameStart: React.FC<GameStartType> = ({ data, songsToPlay }) => {
           <IoIosSkipForward size={50} />
           Skip song
         </button>
+
       </div>
-      <div className="flex h-[120%] w-full flex-wrap overflow-x-hidden   overflow-y-scroll scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-500 ">
+      <div className="flex h-[80%] w-full flex-wrap overflow-x-hidden   overflow-y-scroll scrollbar-thin scrollbar-track-black scrollbar-thumb-gray-500 ">
         {data?.tracks?.items.map((item) => {
           if (item?.track?.preview_url)
             return (

@@ -14,7 +14,7 @@ type UserSavedPlaylist={
 
 
 const GuessingGamePlayList: React.FC<PlayListType | UserSavedPlaylist> = ({playlist}) => {
-
+    console.log(playlist)
 
     return (
         <Link
