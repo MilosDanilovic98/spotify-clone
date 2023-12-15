@@ -7,6 +7,7 @@ import Header from "@/components/layout/Header";
 
 import { createServerClient } from "@supabase/ssr";
 import SinglePlaylistResponse=SpotifyApi.SinglePlaylistResponse
+
 async function getData({ params }: { params: { playlistId: string } }) {
   const cookieStore = cookies();
 
@@ -25,7 +26,7 @@ async function getData({ params }: { params: { playlistId: string } }) {
   const {
     data: { session },
   } = await supabase.auth.getSession();
-
+  console.log(session?.provider_token)
   try {
     const response = await fetch(
       `https://api.spotify.com/v1/playlists/${params.playlistId}`,

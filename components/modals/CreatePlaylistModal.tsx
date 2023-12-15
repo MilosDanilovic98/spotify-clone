@@ -6,12 +6,11 @@ import Modal from "@/components/modals/Modal";
 import useCreatePlaylistModal from "@/hooks/useCreatePlaylistModal";
 import Input from "@/components/inputs/Input";
 import Button from "@/components/buttons/Button";
+import {createBrowserClient} from "@supabase/ssr";
 
 
-const CreatePlaylistModal = () => {
-    const router = useRouter();
-    const { session } = useSessionContext();
-    const { onClose, isOpen,onSubmit } = useCreatePlaylistModal();
+const CreatePlaylistModal =  () => {
+   const { onClose, isOpen,onSubmit } = useCreatePlaylistModal();
     const [playlistName,setPlaylistName]=useState<string>("MyPlaylist")
 
 
@@ -21,12 +20,7 @@ const CreatePlaylistModal = () => {
         }
     };
 
-    useEffect(() => {
-        if (session) {
-            router.refresh();
-            onClose();
-        }
-    }, [session, router, onClose]);
+
 
     return (
         <Modal

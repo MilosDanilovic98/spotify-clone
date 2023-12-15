@@ -4,11 +4,15 @@ import toast from "react-hot-toast";
 import { Song } from "@/types";
 
 import { useSessionContext } from "@supabase/auth-helpers-react";
+import {createBrowserClient} from "@supabase/ssr";
 
 const useGetSongById = (id?: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [song, setSong] = useState<Song | undefined>(undefined);
-  const { supabaseClient } = useSessionContext();
+  const supabaseClient = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   useEffect(() => {
     if (!id) {

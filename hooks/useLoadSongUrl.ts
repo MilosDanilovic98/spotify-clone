@@ -1,9 +1,13 @@
 import { Song } from "@/types";
 
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+
+import {createBrowserClient} from "@supabase/ssr";
 
 const useLoadSongUrl = (song: Song) => {
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   if (!song) {
     return "";
