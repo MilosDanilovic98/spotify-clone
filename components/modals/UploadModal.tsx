@@ -15,12 +15,16 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import useUploadModal from "@/hooks/useUploadModal";
 import { useUser } from "@/hooks/useUser";
+import {createBrowserClient} from "@supabase/ssr";
 
 const UploadModal = () => {
   const uploadModal = useUploadModal();
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useUser();
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
   const router = useRouter();
 
   const { register, handleSubmit, reset } = useForm<FieldValues>({

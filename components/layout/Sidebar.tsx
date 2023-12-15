@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { HiHome } from "react-icons/hi";
 import { SiMusicbrainz } from "react-icons/si";
+import { GiGamepad } from "react-icons/gi";
 import { twMerge } from "tailwind-merge";
 
 import { usePathname } from "next/navigation";
@@ -11,6 +12,12 @@ import { usePathname } from "next/navigation";
 import Box from "@/components/layout/Box";
 import Library from "@/components/songs/Library";
 import SidebarItem from "@/components/songs/SidebarItem";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/tooltip/Tooltip";
 
 import { Song } from "@/types";
 
@@ -48,6 +55,12 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
         active: pathname === "/reccommendation",
         href: "/reccommendation",
       },
+      {
+        icon: GiGamepad,
+        label: "Guessing Game",
+        active: pathname === "/guessingGame",
+        href: "/guessingGame",
+      },
     ],
     [pathname]
   );
@@ -63,9 +76,20 @@ const Sidebar: React.FC<SidebarProps> = ({ children, songs }) => {
         <Box>
           <div className="flex flex-col gap-y-4 px-5 py-5">
             {routes.map((item) => {
-              if (item.label !== "Recommendations") {
-                return <SidebarItem key={item.label} {...item} />;
-              } else if (spotifyToken) {
+              if (!spotifyToken && (item.label === "Recommendations"||item.label === "Guessing Game") ) {
+                return (
+                  <TooltipProvider delayDuration={0} key={item.label}>
+                    <Tooltip>
+                      <TooltipTrigger className={"w-fit"} >
+                        <SidebarItem disabled={true} {...item} />
+                      </TooltipTrigger>
+                      <TooltipContent className={"bg-black  text-center"}>
+                        Must log in with your spotify account to have access to this page
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                );
+              } else {
                 return <SidebarItem key={item.label} {...item} />;
               }
             })}

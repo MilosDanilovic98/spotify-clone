@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import toast from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
 import { FaUserAlt } from "react-icons/fa";
@@ -12,10 +12,13 @@ import { useRouter } from "next/navigation";
 
 import Button from "@/components/buttons/Button";
 
-import { useSupabaseClient } from "@supabase/auth-helpers-react";
+
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
+import {createBrowserClient} from "@supabase/ssr";
+import {SiMusicbrainz} from "react-icons/si";
+import {GiGamepad} from "react-icons/gi";
 
 interface HeaderProps {
   children: React.ReactNode;
@@ -25,8 +28,12 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const router = useRouter();
   const { onOpen } = useAuthModal();
 
-  const supaBaseClient = useSupabaseClient();
-  const { user, isLoading } = useUser();
+  const supaBaseClient = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
+  const { user, isLoading,spotifyToken,spotifyRefreshToken } = useUser();
 
   const handleLogout = async () => {
     const { error } = await supaBaseClient.auth.signOut();
@@ -60,12 +67,18 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
             <RxCaretRight className="text-white" size={35} />
           </button>
         </div>
-        <div className="flex items-center gap-x-2 md:hidden">
-          <button className="flex items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
+        <div className="flex items-center gap-4 md:hidden flex-wrap">
+          <button onClick={()=>router.push("/")} className="flex items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
             <HiHome className="text-black" size={20} />
           </button>
-          <button className="flex items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
+          <button onClick={()=>router.push("/search")} className="flex items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
             <BiSearch className="text-black" size={20} />
+          </button>
+          <button disabled={!spotifyToken} onClick={()=>router.push("/reccommendation")} className="flex items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
+            <SiMusicbrainz className="text-black" size={20} />
+          </button>
+          <button disabled={!spotifyToken} onClick={()=>router.push("/guessingGame")} className="flex items-center justify-center rounded-full bg-white p-2 transition hover:opacity-75">
+            <GiGamepad className="text-black" size={20} />
           </button>
         </div>
         <div className="flex items-center justify-between gap-x-4">
@@ -81,7 +94,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
               <Button
                 disabled={isLoading}
                 className="bg-white"
-                onClick={() => router.push("/account")}
+                // onClick={() => router.push("/account")}
               >
                 <FaUserAlt />
               </Button>

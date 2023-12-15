@@ -10,13 +10,17 @@ import { useSessionContext } from "@supabase/auth-helpers-react";
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
+import {createBrowserClient} from "@supabase/ssr";
 
 interface LikedButtonProps {
   songId: string;
 }
 const LikedButton: React.FC<LikedButtonProps> = ({ songId }) => {
   const router = useRouter();
-  const { supabaseClient } = useSessionContext();
+  const supabaseClient = createBrowserClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   const authModal = useAuthModal();
   const { user } = useUser();

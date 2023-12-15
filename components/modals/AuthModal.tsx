@@ -8,20 +8,24 @@ import Modal from "@/components/modals/Modal";
 
 import {
   useSessionContext,
-  useSupabaseClient,
 } from "@supabase/auth-helpers-react";
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
+import { createBrowserClient } from "@supabase/ssr";
 
 import useAuthModal from "@/hooks/useAuthModal";
 
 const AuthModal = () => {
-  const supabaseClient = useSupabaseClient();
+  const supabaseClient = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
+
   const router = useRouter();
   const { session } = useSessionContext();
   const { onClose, isOpen } = useAuthModal();
 
-/*TEST4*/
+  /*TEST4*/
   const onChange = (open: boolean) => {
     if (!open) {
       onClose();
@@ -35,6 +39,7 @@ const AuthModal = () => {
     }
   }, [session, router, onClose]);
 
+
   return (
     <Modal
       isOpen={isOpen}
@@ -45,9 +50,13 @@ const AuthModal = () => {
       <Auth
         supabaseClient={supabaseClient}
         magicLink
+        redirectTo={`${location.origin}/auth/callback`}
         theme={"dark"}
         providers={["github", "spotify"]}
-        providerScopes={{spotify: "user-top-read,user-library-read,playlist-modify-public,playlist-modify-private"}}
+        providerScopes={{
+          spotify:
+            "user-top-read,user-library-read,playlist-modify-public,playlist-modify-private",
+        }}
         appearance={{
           theme: ThemeSupa,
           variables: {
