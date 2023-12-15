@@ -34,7 +34,7 @@ const AuthModal = () => {
       onClose();
     }
   }, [session, router, onClose]);
-  location.origin
+
   return (
     <Modal
       isOpen={isOpen}

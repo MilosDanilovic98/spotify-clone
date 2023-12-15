@@ -105,7 +105,7 @@ const UploadModal = () => {
       setIsLoading(false);
     }
   };
-
+  console.log("MODALLL")
   return (
     <Modal
       isOpen={uploadModal.isOpen}

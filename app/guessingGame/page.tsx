@@ -86,7 +86,7 @@ const Page = () => {
 
 
 
-    console.log(categories?.categories.items)
+
 
     return (<>
         <div className={"h-full w-full overflow-hidden overflow-y-auto rounded-lg  bg-neutral-900 pb-48"}>

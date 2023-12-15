@@ -1,27 +1,29 @@
 import useReccommendStore from "@/app/reccommendation/useReccommendStore";
 import queryString from "query-string";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { FaSpinner } from "react-icons/fa";
 import uniqid from "uniqid";
 
 import Button from "@/components/buttons/Button";
 
+import useCreatePlaylistModal from "@/hooks/useCreatePlaylistModal";
 import usePlayer from "@/hooks/usePlayer";
 import { useUser } from "@/hooks/useUser";
 
 import RecommendationsObject = SpotifyApi.RecommendationsObject;
-import toast from "react-hot-toast";
 
 const GetRecommendations = () => {
   const { spotifyToken, spotifyRefreshToken, user } = useUser();
   const player = usePlayer();
+  const { onOpen, onClose } = useCreatePlaylistModal();
   const tracks = useReccommendStore((state) => state.tracks);
   const artists = useReccommendStore((state) => state.artists);
   const genres = useReccommendStore((state) => state.genres);
 
   const [data, setData] = useState<RecommendationsObject>();
   const [isGenerating, setIsGenerating] = useState(false);
-  const[isCreatingPlaylist, setIsCreatingPlaylist] = useState(false)
+  const [isCreatingPlaylist, setIsCreatingPlaylist] = useState(false);
 
   const fetchSearch = async () => {
     setIsGenerating(true);
@@ -68,8 +70,8 @@ const GetRecommendations = () => {
     setIsGenerating(false);
   };
 
-  const createPlaylist = async () => {
-    setIsCreatingPlaylist(true)
+  const createPlaylist = async (playlistName: string) => {
+    setIsCreatingPlaylist(true);
     try {
       const response = await fetch(
         `https://api.spotify.com/v1/users/${user?.user_metadata?.provider_id}/playlists`,
@@ -82,46 +84,49 @@ const GetRecommendations = () => {
           },
 
           body: JSON.stringify({
-            name: "Cool Playlist",
+            name: playlistName,
             description: "New playlist description",
             public: false,
           }),
         }
       );
-      const playlistData=await response.json();
-      const bla =data?.tracks.map((track) => {
-        return track.uri
-      })
+      const playlistData = await response.json();
+      const tracksArray = data?.tracks.map((track) => {
+        return track.uri;
+      });
 
-      const response2 = await fetch(
-          `https://api.spotify.com/v1/playlists/${playlistData?.id}/tracks`,
+      const setTracks = await fetch(
+        `https://api.spotify.com/v1/playlists/${playlistData?.id}/tracks`,
 
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + spotifyToken,
-            },
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + spotifyToken,
+          },
 
-            body: JSON.stringify({
-              uris: bla,
-              position: 0
-            }),
-          }
+          body: JSON.stringify({
+            uris: tracksArray,
+            position: 0,
+          }),
+        }
       );
 
-    toast.success("Playlist created")
-      setIsCreatingPlaylist(false)
+      toast.success("Playlist created");
+      onClose();
+      setIsCreatingPlaylist(false);
     } catch (e) {
       console.log(e);
     }
   };
 
-  if(genres.length+tracks.length+artists.length>5){
-    return<div className={"w-full text-center text-3xl mt-4"}>You can only combine 5 seeds combined (genres,tracks and artists) :(</div>
+  if (genres.length + tracks.length + artists.length > 5) {
+    return (
+      <div className={"mt-4 w-full text-center text-3xl"}>
+        You can only combine 5 seeds combined (genres,tracks and artists) :(
+      </div>
+    );
   }
-
-
 
   return (
     <>
@@ -138,7 +143,10 @@ const GetRecommendations = () => {
         <Button
           className={"text-center"}
           disabled={isCreatingPlaylist}
-          onClick={() => createPlaylist()}
+          onClick={() => {
+            useCreatePlaylistModal.setState({ onSubmit: createPlaylist });
+            onOpen();
+          }}
         >
           {isCreatingPlaylist ? <FaSpinner /> : "Create playlist"}
         </Button>
@@ -149,9 +157,8 @@ const GetRecommendations = () => {
           if (option.preview_url)
             return (
               <div
-
                 className={
-                  "flex  cursor-pointer items-center gap-x-3 rounded-md p-2 hover:bg-neutral-800/50 "
+                  "flex w-full cursor-pointer items-center gap-x-3 rounded-md p-2 hover:bg-neutral-800/50 sm:w-1/2 xl:w-1/3 "
                 }
                 key={uniqid()}
               >
